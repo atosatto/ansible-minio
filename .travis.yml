@@ -1,0 +1,27 @@
+---
+
+language: python
+python: "2.7"
+
+# Use the new container infrastructure
+sudo: required
+
+# Enable the docker service
+services:
+  - docker
+
+# Ensure docker is updated
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+
+# Install molecule
+install:
+  - pip install -r test-requirements.txt
+
+# Execute the tests using the molecule docker driver
+script:
+  - molecule test --driver docker
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

@@ -1,0 +1,6 @@
+---
+
+- hosts: all
+  roles:
+    - { role: ansible-minio,
+        minio_server_datadirs: [ "/tmp" ] }

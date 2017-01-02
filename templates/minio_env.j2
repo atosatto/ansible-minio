@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+
+# Minio local/remote volumes.
+MINIO_VOLUMES="{{ minio_server_datadirs | join(' ') }}"
+# Minio cli options.
+MINIO_OPTS="--address {{ minio_server_addr }} {{ minio_server_opts }}"
+
+{% if minio_access_key %}
+# Access Key of the server.
+MINIO_ACCESS_KEY="{{ minio_access_key }}"
+{% endif %}
+{% if minio_secret_key %}
+# Secret key of the server.
+MINIO_SECRET_KEY="{{ minio_secret_key }}"
+{% endif %}

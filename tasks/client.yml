@@ -1,0 +1,9 @@
+---
+
+- name: download minio client
+  get_url:
+    url: "{{ minio_client_download_url }}"
+    dest: "{{ minio_client_bin }}"
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    mode: 0755

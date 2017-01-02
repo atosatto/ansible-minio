@@ -1,0 +1,21 @@
+---
+
+- name: include os-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: create minio group
+  group:
+    name: "{{ minio_group }}"
+    state: present
+
+- name: create minio user
+  user:
+    name: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    shell: /bin/bash
+
+- include: server.yml
+  when: not skip_server
+
+- include: client.yml
+  when: not skip_client

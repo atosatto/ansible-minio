@@ -1,0 +1,5 @@
+---
+
+# Minio and MC download urls
+minio_server_download_url: https://dl.minio.io/server/minio/release/linux-amd64/minio
+minio_client_download_url: https://dl.minio.io/client/mc/release/linux-amd64/mc
