@@ -3,7 +3,8 @@ Ansible Role: Minio
 
 [![Build Status](https://travis-ci.org/atosatto/ansible-minio.svg?branch=master)](https://travis-ci.org/atosatto/ansible-minio)
 
-Install and configure [Minio](https://minio.io/) on RHEL/CentOS and Debian/Ubuntu.
+Install and configure the [Minio](https://minio.io/) S3 compatible object storage server
+on RHEL/CentOS and Debian/Ubuntu.
 
 Requirements
 ------------
