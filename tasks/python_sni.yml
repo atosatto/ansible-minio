@@ -1,0 +1,24 @@
+---
+
+# with_indexed_items is required as a workaround for this issue:
+# https://github.com/ansible/ansible-modules-core/issues/1178
+- name: install python-pip
+  package:
+    name: "{{ item.1 }}"
+    state: present
+  with_indexed_items: "{{ python_pip_packages }}"
+
+- name: install the Python SNI support packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ python_sni_support_packages }}"
+
+# There extra pip dependencies are needed to add SSL SNI support to
+# Python version prior to 2.7.9. SNI support is needed by the Ansible
+# get_url module in server.yml and client.yml.
+- name: install the Python SNI python-pip dependencies.
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ python_sni_pip_dependencies }}"

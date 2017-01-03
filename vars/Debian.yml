@@ -1,4 +1,18 @@
 ---
 
+# systemd unit files location
 systemd_units_dir: /lib/systemd/system
-upstart_conf_dir: /etc/init
+
+# packages providing python-pip
+python_pip_packages:
+  - python-pip
+
+# extra packages required to add SNI support to legacy python versions
+python_sni_support_packages:
+  - python-dev
+  - libssl-dev
+  - libffi-dev
+
+# extra packages needed by ansible to correctly configure the system
+ansible_support_packages:
+  - ca-certificates

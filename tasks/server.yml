@@ -10,7 +10,7 @@
 
 - name: generate the minio server envfile
   template:
-    src: minio_env.j2
+    src: minio.env.j2
     dest: "{{ minio_server_envfile }}"
   notify: restart minio
 
@@ -20,11 +20,12 @@
     dest: "{{ systemd_units_dir }}/minio.service"
   when: ansible_service_mgr == "systemd"
 
-- name: create the minio server upstart config
+- name: create the minio server init.d config
   template:
-    src: minio.upstart.j2
-    dest: "{{ upstart_conf_dir }}/minio.conf"
-  when: ansible_service_mgr == "upstart"
+    src: minio.init.j2
+    dest: "{{ initd_conf_dir }}/minio"
+    mode: 0755
+  when: ansible_service_mgr != "systemd"
 
 - name: enable and start the minio service
   service:

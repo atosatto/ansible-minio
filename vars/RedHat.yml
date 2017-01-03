@@ -1,3 +1,15 @@
 ---
 
+# systemd unit files location
 systemd_units_dir: /etc/systemd/system
+
+# packages providing python-pip
+python_pip_packages:
+  - epel-release
+  - python-pip
+
+# extra packages required to add SNI support to legacy python versions
+python_sni_support_packages: [ ]
+
+# extra packages needed by ansible to correctly configure the system
+ansible_support_packages: [ ]

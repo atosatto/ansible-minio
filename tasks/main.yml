@@ -3,6 +3,19 @@
 - name: include os-specific variables
   include_vars: "{{ ansible_os_family }}.yml"
 
+  # add the python sni support to legacy python installations
+- include: python_sni.yml
+  when: ansible_os_family == 'Debian'
+    and ansible_python_version | version_compare('2.6.0', '>=')
+    and ansible_python_version | version_compare('2.7.9', '<')
+
+  # install additional ansible dependencies
+- name: install ansible support packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ ansible_support_packages }}"
+
 - name: create minio group
   group:
     name: "{{ minio_group }}"

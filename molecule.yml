@@ -7,12 +7,18 @@ docker:
       image: atosatto/centos
       image_version: 7-systemd
       privileged: True
-    # - name: minio-ubuntu-16.04
-    #   image: atosatto/ubuntu
-    #   image_version: 16.04
+    - name: minio-ubuntu-16.04
+      image: atosatto/ubuntu
+      image_version: 16.04
+      privileged: True
+    # TODO: Find a workaround to
+    #       https://github.com/ansible/ansible/issues/18894
+    #       and add ubuntu-14.04 to CI.
+    # - name: minio-ubuntu-14.04
+    #   image: ubuntu
+    #   image_version: 14.04
     #   privileged: True
-    # Unfortunately, upstart does not run in Docker containers,
-    # so no Ubuntu 14.04 docker tests :/
+
 
 # vagrant driver configuration (development)
 vagrant:
@@ -31,6 +37,10 @@ vagrant:
         cpus: 2
   instances:
     - name: ansible-minio-01
+      interfaces:
+        - network_name: private_network
+          type: dhcp
+          auto_config: true
       options:
         append_platform_to_hostname: yes
 
