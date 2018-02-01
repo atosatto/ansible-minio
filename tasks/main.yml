@@ -27,6 +27,14 @@
     group: "{{ minio_group }}"
     shell: /bin/bash
 
+- name: create minio config dir
+  file:
+    path: /etc/minio
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    state: directory
+  when: minio_config_dir is defined
+
 - include: server.yml
   when: not skip_server
 
