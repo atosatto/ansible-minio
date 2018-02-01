@@ -27,6 +27,15 @@
     mode: 0755
   when: ansible_service_mgr != "systemd"
 
+- name: create the minio data directory
+  file:
+    path: "{{ item }}"
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    mode: 0755
+    state: directory
+  with_items: "{{ minio_server_datadirs }}"
+
 - name: enable and start the minio service
   service:
     name: minio
