@@ -28,7 +28,7 @@
     shell: /bin/bash
 
 - include: server.yml
-  when: not skip_server
+  when: not minio_skip_server
 
 - include: client.yml
-  when: not skip_client
+  when: not minio_skip_client
