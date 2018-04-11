@@ -49,8 +49,8 @@ Additional CLI options that must be appended to the minio server start command.
 
 Minio access and secret keys.
 
-    skip_server: False
-    skip_client: False
+    minio_skip_server: False
+    minio_skip_client: False
 
 Switches to disable minio server and/or minio client installation.
 
