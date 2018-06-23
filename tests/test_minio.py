@@ -25,6 +25,18 @@ def test_minio_installed(File, AnsibleDefaults, minio_bin_var):
     assert oct(f.mode) == '0755'
 
 
+@pytest.mark.parametrize("dirs", [
+    "/test-minio"
+])
+def test_directories(host, dirs):
+    d = host.file(dirs)
+    assert d.is_directory
+    assert d.exists
+    assert d.user == AnsibleDefaults['minio_user']
+    assert d.group == AnsibleDefaults['minio_group']
+    assert oct(d.mode) == '0750'
+
+
 def test_minio_service(Service):
 
     s = Service('minio')

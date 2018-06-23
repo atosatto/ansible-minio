@@ -3,4 +3,4 @@
 - hosts: all
   roles:
     - { role: ansible-minio,
-        minio_server_datadirs: [ "/tmp" ] }
+        minio_server_datadirs: [ "/minio-test" ] }
