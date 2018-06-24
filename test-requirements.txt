@@ -1,3 +1,4 @@
-molecule==1.17.3
-docker-py==1.10.6
+molecule>=2.15.0
+docker-py>=1.10.0
 PyYAML==3.12
+ansible-lint>=3.4.0
