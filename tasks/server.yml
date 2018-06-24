@@ -1,5 +1,15 @@
 ---
 
+- name: create data storage directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    mode: 0750
+  when: minio_server_make_datadirs
+  with_items: "{{ minio_server_datadirs }}"
+
 - name: download minio server
   get_url:
     url: "{{ minio_server_download_url }}"
@@ -27,19 +37,8 @@
     mode: 0750
   when: ansible_service_mgr != "systemd"
 
-- name: create data storage directories
-  file:
-    path: "{{ item }}"
-    state: directory
-    recurse: true
-    owner: "{{ minio_user }}"
-    group: "{{ minio_group }}"
-    mode: 0750
-  when: minio_server_make_datadirs
-  with_items: "{{ minio_server_datadirs }}"
-
 - name: enable and start the minio service
   service:
     name: minio
     state: started
-    enabled: yes
+    enabled: true

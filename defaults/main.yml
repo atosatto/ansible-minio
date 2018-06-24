@@ -26,5 +26,5 @@ minio_access_key: ""
 minio_secret_key: ""
 
 # Switches to disable minio server and/or minio client installation
-skip_server: False
-skip_client: False
+skip_server: false
+skip_client: false

@@ -6,8 +6,8 @@
   # add the python sni support to legacy python installations
 - include: python_sni.yml
   when: ansible_os_family == 'Debian'
-    and ansible_python_version | version_compare('2.6.0', '>=')
-    and ansible_python_version | version_compare('2.7.9', '<')
+    and ansible_python_version is version_compare('2.6.0', '>=')
+    and ansible_python_version is version_compare('2.7.9', '<')
 
   # install additional ansible dependencies
 - name: install ansible support packages
