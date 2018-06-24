@@ -10,11 +10,27 @@ platforms:
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: minio-fedora-27
+    image: paulfantom/fedora-molecule:27
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: minio-debian-9
+    image: paulfantom/debian-molecule:9
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: minio-ubuntu-18.04
+    image: paulfantom/ubuntu-molecule:18.04
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
   - name: minio-ubuntu-16.04
     image: paulfantom/ubuntu-molecule:16.04
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
 
 provisioner:
   name: ansible
