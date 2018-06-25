@@ -1,5 +1,7 @@
 ---
-
-# Minio and MC download urls
-minio_server_download_url: https://dl.minio.io/server/minio/release/linux-amd64/minio
-minio_client_download_url: https://dl.minio.io/client/mc/release/linux-amd64/mc
+go_arch_map:
+  i386: '386'
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'arm'
+  armv6l: 'arm6vl'

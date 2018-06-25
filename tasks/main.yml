@@ -1,4 +1,6 @@
 ---
+- include: preflight.yml
+
 - name: add the python sni support to legacy python installations
   include: python_sni.yml
   when:
