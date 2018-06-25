@@ -64,17 +64,19 @@ minio_server_cluster_nodes: [ ]
 
 Set a list of nodes to create a [distributed cluster](https://docs.minio.io/docs/distributed-minio-quickstart-guide).
 
-In this mode, ansible will create your server datadirs, but use this list for the server startup.
+In this mode, ansible will create your server datadirs, but use this list for the server startup. Note you will need a number of disks to satisfy Minio's distributed storage requirements.
 
 Example:
 
 ```yaml
 minio_server_datadirs:
   - '/minio-data'
+  - ...
 minio_server_cluster_nodes:
   - 'https://server1/minio-data'
   - 'https://server2/minio-data'
   - 'https://server3/minio-data'
+  - ...
 ```
 
 ```yaml
