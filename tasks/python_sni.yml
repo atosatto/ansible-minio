@@ -4,6 +4,7 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ python_pip_packages }}"
+  register: _install_packages
   until: _install_packages is succeeded
   retries: 5
   delay: 2
@@ -13,7 +14,8 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ python_sni_support_packages }}"
-  until: _install_packages is succeeded
+  register: _install_sni_packages
+  until: _install_sni_packages is succeeded
   retries: 5
   delay: 2
 
@@ -24,7 +26,8 @@
   pip:
     name: "{{ item }}"
     state: present
-  until: _install_packages is succeeded
+  register: _install_pip_packages
+  until: _install_pip_packages is succeeded
   retries: 5
   delay: 2
   with_items:
