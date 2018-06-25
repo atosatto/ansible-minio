@@ -6,6 +6,12 @@
     - ansible-minio
   vars:
     minio_server_datadirs:
-      - "/test"
+      - "/test1"
+      - "/test2"
+      - "/test3"
+      - "/test4"
     minio_server_cluster_nodes:
-      - "https://172.17.0.2:9091/test"
+      - "http://{{ ansible_hostname }}:9091/test1"
+      - "http://{{ ansible_hostname }}:9091/test2"
+      - "http://{{ ansible_hostname }}:9091/test3"
+      - "http://{{ ansible_hostname }}:9091/test4"

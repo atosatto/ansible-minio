@@ -26,7 +26,10 @@ def test_directories(host, dirs):
 
 def test_env_file(host):
     env_file = host.file("/etc/default/minio")
-    assert env_file.contains('MINIO_VOLUMES="https://172.17.0.2:9091/test"')
+    a = host.ansible.get_variables()
+    host = a['ansible_hostname']
+    volume_string = "MINIO_VOLUMES=\"http://%s:9091/test1 " % (host)
+    assert env_file.contains(volume_string)
 
 
 def test_minio_service(Service):
