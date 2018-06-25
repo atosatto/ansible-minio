@@ -4,12 +4,20 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ python_pip_packages }}"
+  register: _install_packages
+  until: _install_packages is succeeded
+  retries: 5
+  delay: 2
 
 - name: install the Python SNI support packages
   package:
     name: "{{ item }}"
     state: present
   with_items: "{{ python_sni_support_packages }}"
+  register: _install_sni_packages
+  until: _install_sni_packages is succeeded
+  retries: 5
+  delay: 2
 
 # There extra pip dependencies are needed to add SSL SNI support to
 # Python version prior to 2.7.9. SNI support is needed by the Ansible
@@ -18,6 +26,10 @@
   pip:
     name: "{{ item }}"
     state: present
+  register: _install_pip_packages
+  until: _install_pip_packages is succeeded
+  retries: 5
+  delay: 2
   with_items:
     - pyopenssl
     - ndg-httpsclient

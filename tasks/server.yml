@@ -27,6 +27,10 @@
     owner: "root"
     group: "root"
     mode: 0755
+  register: _download_server
+  until: _download_server is succeeded
+  retries: 5
+  delay: 2
 
 - name: generate the minio server envfile
   template:
