@@ -4,12 +4,14 @@
 
 **Implemented enhancements:**
 
+- Allow minio to bind to lower ports [\#13](https://github.com/atosatto/ansible-minio/issues/13)
 - Add OS/arch support matrix [\#9](https://github.com/atosatto/ansible-minio/issues/9)
 
 **Merged pull requests:**
 
 - checksum validation [\#18](https://github.com/atosatto/ansible-minio/pull/18) ([paulfantom](https://github.com/paulfantom))
 - Add fedora to supported platforms [\#17](https://github.com/atosatto/ansible-minio/pull/17) ([paulfantom](https://github.com/paulfantom))
+- Update systemd service file [\#16](https://github.com/atosatto/ansible-minio/pull/16) ([paulfantom](https://github.com/paulfantom))
 - Multiarch [\#14](https://github.com/atosatto/ansible-minio/pull/14) ([paulfantom](https://github.com/paulfantom))
 - Variables cleanup & README colors [\#12](https://github.com/atosatto/ansible-minio/pull/12) ([paulfantom](https://github.com/paulfantom))
 - Auto releaser [\#11](https://github.com/atosatto/ansible-minio/pull/11) ([paulfantom](https://github.com/paulfantom))
