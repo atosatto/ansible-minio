@@ -2,8 +2,14 @@
 
 ## [**Next release**](https://galaxy.ansible.com/atosatto/minio)
 
+**Implemented enhancements:**
+
+- Add OS/arch support matrix [\#9](https://github.com/atosatto/ansible-minio/issues/9)
+
 **Merged pull requests:**
 
+- Add fedora to supported platforms [\#17](https://github.com/atosatto/ansible-minio/pull/17) ([paulfantom](https://github.com/paulfantom))
+- Multiarch [\#14](https://github.com/atosatto/ansible-minio/pull/14) ([paulfantom](https://github.com/paulfantom))
 - Variables cleanup & README colors [\#12](https://github.com/atosatto/ansible-minio/pull/12) ([paulfantom](https://github.com/paulfantom))
 - Auto releaser [\#11](https://github.com/atosatto/ansible-minio/pull/11) ([paulfantom](https://github.com/paulfantom))
 - Improve network resiliency [\#10](https://github.com/atosatto/ansible-minio/pull/10) ([paulfantom](https://github.com/paulfantom))
