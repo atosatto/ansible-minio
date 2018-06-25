@@ -7,3 +7,6 @@
     owner: "{{ minio_user }}"
     group: "{{ minio_group }}"
     mode: 0755
+  until: _download_client is succeeded
+  retries: 5
+  delay: 2

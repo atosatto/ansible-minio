@@ -7,12 +7,18 @@
     name: "{{ item.1 }}"
     state: present
   with_indexed_items: "{{ python_pip_packages }}"
+  until: _install_packages is succeeded
+  retries: 5
+  delay: 2
 
 - name: install the Python SNI support packages
   package:
     name: "{{ item }}"
     state: present
   with_items: "{{ python_sni_support_packages }}"
+  until: _install_packages is succeeded
+  retries: 5
+  delay: 2
 
 # There extra pip dependencies are needed to add SSL SNI support to
 # Python version prior to 2.7.9. SNI support is needed by the Ansible
@@ -22,3 +28,8 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ python_sni_pip_dependencies }}"
+  until: _install_packages is succeeded
+  retries: 5
+  delay: 2
+
+
