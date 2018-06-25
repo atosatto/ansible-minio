@@ -1,4 +1,14 @@
 ---
+- name: create minio group
+  group:
+    name: "{{ minio_group }}"
+    state: present
+
+- name: create minio user
+  user:
+    name: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    shell: /bin/bash
 
 - name: create data storage directories
   file:
@@ -27,13 +37,13 @@
 - name: create the minio server systemd config
   template:
     src: minio.service.j2
-    dest: "{{ systemd_units_dir }}/minio.service"
+    dest: "/etc/systemd/system/minio.service"
   when: ansible_service_mgr == "systemd"
 
 - name: create the minio server init.d config
   template:
     src: minio.init.j2
-    dest: "{{ initd_conf_dir }}/minio"
+    dest: "/etc/init.d/minio"
     mode: 0750
   when: ansible_service_mgr != "systemd"
 
