@@ -4,6 +4,7 @@
 
 **Merged pull requests:**
 
+- Auto releaser [\#11](https://github.com/atosatto/ansible-minio/pull/11) ([paulfantom](https://github.com/paulfantom))
 - major code cleanup [\#8](https://github.com/atosatto/ansible-minio/pull/8) ([paulfantom](https://github.com/paulfantom))
 - Run travis tests against 3 different ansible versions [\#7](https://github.com/atosatto/ansible-minio/pull/7) ([paulfantom](https://github.com/paulfantom))
 - Add a simple MAINTAINERS file [\#6](https://github.com/atosatto/ansible-minio/pull/6) ([atosatto](https://github.com/atosatto))
