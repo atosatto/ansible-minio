@@ -1,0 +1,14 @@
+---
+
+- hosts: all
+  any_errors_fatal: true
+  roles:
+    - ansible-minio
+  vars:
+    minio_server_envfile: "/opt/minio"
+    minio_server_addr: ":80"
+    minio_server_datadirs:
+      - "/srv/data1"
+      - "/srv/data2"
+      - "/srv/data3"
+      - "/srv/data4"

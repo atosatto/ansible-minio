@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 [Unit]
 Description=Minio
 Documentation=https://docs.minio.io
@@ -15,7 +17,11 @@ PermissionsStartOnly=true
 
 EnvironmentFile={{ minio_server_envfile }}
 ExecStartPre=/bin/bash -c "[ -n \"${MINIO_VOLUMES}\" ] || echo \"Variable MINIO_VOLUMES not set in {{ minio_server_envfile }}\""
+
 ExecStart={{ minio_server_bin }} server $MINIO_OPTS $MINIO_VOLUMES
+
+# Let systemd restart this service only if it has ended with the clean exit code or signal.
+Restart=on-success
 
 StandardOutput=journal
 StandardError=inherit
@@ -32,6 +38,10 @@ KillSignal=SIGTERM
 SendSIGKILL=no
 
 SuccessExitStatus=0
+
+{% if (minio_server_addr.split(':')[-1] | int) < 1024 %}
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+{% endif %}
 
 [Install]
 WantedBy=multi-user.target
