@@ -1,12 +1,9 @@
 ---
-
-# with_indexed_items is required as a workaround for this issue:
-# https://github.com/ansible/ansible-modules-core/issues/1178
 - name: install python-pip
   package:
-    name: "{{ item.1 }}"
+    name: "{{ item }}"
     state: present
-  with_indexed_items: "{{ python_pip_packages }}"
+  with_items: "{{ python_pip_packages }}"
   until: _install_packages is succeeded
   retries: 5
   delay: 2
@@ -27,9 +24,10 @@
   pip:
     name: "{{ item }}"
     state: present
-  with_items: "{{ python_sni_pip_dependencies }}"
   until: _install_packages is succeeded
   retries: 5
   delay: 2
-
-
+  with_items:
+    - pyopenssl
+    - ndg-httpsclient
+    - pyasn1

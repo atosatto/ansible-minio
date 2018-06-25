@@ -1,8 +1,4 @@
 ---
-
-# systemd unit files location
-systemd_units_dir: /etc/systemd/system
-
 # packages providing python-pip
 python_pip_packages:
   - epel-release
@@ -12,4 +8,4 @@ python_pip_packages:
 python_sni_support_packages: [ ]
 
 # extra packages needed by ansible to correctly configure the system
-ansible_support_packages: [ ]
+minio_ansible_support_packages: [ ]
