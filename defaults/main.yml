@@ -25,6 +25,6 @@ minio_server_opts: ""
 minio_access_key: ""
 minio_secret_key: ""
 
-# Switches to disable minio server and/or minio client installation
-skip_server: false
-skip_client: false
+# Switches to enable/disable the minio server and/or minio client installation.
+minio_install_server: true
+minio_install_client: true
