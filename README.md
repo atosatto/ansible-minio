@@ -53,6 +53,12 @@ Directories of the folder containing the minio server data
 **NB**: This variable must always be set by the role, otherwise the minio service will not start.
 
 ```yaml
+minio_server_make_datadirs: true
+```
+
+Create directories from `minio_server_datadirs` 
+
+```yaml
 minio_server_opts: ""
 ```
 

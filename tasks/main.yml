@@ -1,7 +1,4 @@
 ---
-- name: include os-specific variables
-  include_vars: "{{ ansible_os_family | lower }}.yml"
-
 - name: add the python sni support to legacy python installations
   include: python_sni.yml
   when:
