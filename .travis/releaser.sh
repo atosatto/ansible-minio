@@ -25,8 +25,8 @@
 [[ $(git tag --points-at) ]] && exit 0
 
 # Some basic variables
-GIT_MAIL="cloudalchemybot@gmail.com"
-GIT_USER="cloudalchemybot"
+GIT_MAIL="andrea.tosy@gmail.com"
+GIT_USER="atosatto"
 ORGANIZATION=$(echo "$TRAVIS_REPO_SLUG" | awk -F '/' '{print $1}')
 PROJECT=$(echo "$TRAVIS_REPO_SLUG" | awk -F '/' '{print $2}')
 GALAXY_URL="https://galaxy.ansible.com/${ORGANIZATION}/${PROJECT#ansible-}"
