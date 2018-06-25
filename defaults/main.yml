@@ -18,6 +18,9 @@ minio_server_addr: ":9091"
 minio_server_datadirs: [ ]
 minio_server_make_datadirs: true
 
+# Minio server cluster node list.
+minio_server_cluster_nodes: [ ]
+
 # Additional minio server CLI options
 minio_server_opts: ""
 
