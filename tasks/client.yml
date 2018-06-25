@@ -3,6 +3,6 @@
   get_url:
     url: "{{ minio_client_download_url }}"
     dest: "{{ minio_client_bin }}"
-    owner: "{{ minio_user }}"
-    group: "{{ minio_group }}"
+    owner: "root"
+    group: "root"
     mode: 0755

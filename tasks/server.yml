@@ -24,8 +24,8 @@
   get_url:
     url: "{{ minio_server_download_url }}"
     dest: "{{ minio_server_bin }}"
-    owner: "{{ minio_user }}"
-    group: "{{ minio_group }}"
+    owner: "root"
+    group: "root"
     mode: 0755
 
 - name: generate the minio server envfile
