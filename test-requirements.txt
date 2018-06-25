@@ -1,4 +1,4 @@
 molecule>=2.15.0
-docker-py>=1.10.0
-PyYAML==3.12
+docker
 ansible-lint>=3.4.0
+testinfra>=1.7.0

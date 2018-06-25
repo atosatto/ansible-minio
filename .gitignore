@@ -7,3 +7,4 @@ tests/__pycache__/
 *.pyc
 
 *.retry
+.tox
