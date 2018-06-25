@@ -73,8 +73,3 @@ License
 -------
 
 MIT
-
-Author Information
-------------------
-
-Andrea Tosatto ([@\_hilbert\_](https://twitter.com/_hilbert_))
