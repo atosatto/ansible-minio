@@ -42,3 +42,8 @@ def test_minio_service(Service):
     s = Service('minio')
     assert s.is_running
     assert s.is_enabled
+
+
+def test_capabilities(host):
+    service_file = host.file("/etc/systemd/system/minio.service")
+    assert service_file.contains("AmbientCapabilities=CAP_NET_BIND_SERVICE")
