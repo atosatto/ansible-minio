@@ -27,6 +27,7 @@
     owner: "root"
     group: "root"
     mode: 0755
+    checksum: "sha256:{{ minio_server_checksum }}"
   register: _download_server
   until: _download_server is succeeded
   retries: 5
