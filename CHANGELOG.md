@@ -4,6 +4,7 @@
 
 **Merged pull requests:**
 
+- Variables cleanup & README colors [\#12](https://github.com/atosatto/ansible-minio/pull/12) ([paulfantom](https://github.com/paulfantom))
 - Auto releaser [\#11](https://github.com/atosatto/ansible-minio/pull/11) ([paulfantom](https://github.com/paulfantom))
 - Improve network resiliency [\#10](https://github.com/atosatto/ansible-minio/pull/10) ([paulfantom](https://github.com/paulfantom))
 - major code cleanup [\#8](https://github.com/atosatto/ansible-minio/pull/8) ([paulfantom](https://github.com/paulfantom))
