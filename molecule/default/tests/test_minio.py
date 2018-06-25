@@ -12,6 +12,18 @@ def AnsibleDefaults(Ansible):
         return yaml.load(stream)
 
 
+@pytest.mark.parametrize("dirs", [
+    "/minio-test"
+])
+def test_directories(host, dirs):
+    d = host.file(dirs)
+    assert d.is_directory
+    assert d.exists
+    assert d.user == AnsibleDefaults['minio_user']
+    assert d.group == AnsibleDefaults['minio_group']
+    assert oct(d.mode) == '0750'
+
+
 @pytest.mark.parametrize('minio_bin_var', [
     'minio_server_bin',
     'minio_client_bin',
