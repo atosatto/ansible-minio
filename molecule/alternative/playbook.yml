@@ -5,7 +5,7 @@
   roles:
     - ansible-minio
   vars:
-    # minio_server_envfile: "/opt/minio"
+    minio_server_envfile: "/opt/minio"
     minio_server_addr: ":80"
     minio_server_datadirs:
       - "/srv/data1"
