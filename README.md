@@ -88,8 +88,9 @@ None.
 - name: "Install Minio"
   hosts: all
   roles:
-     - { role: atosatto.minio,
-         minio_server_datadirs: [ "/tmp" ] }
+    - atosatto.minio
+  vars:
+    minio_server_datadirs: [ "/minio-test" ]
 ```
 
 ## Changelog
