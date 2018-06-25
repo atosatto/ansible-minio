@@ -1,7 +1,7 @@
 ---
-
 language: python
 python: "2.7"
+cache: pip
 
 # Use the new container infrastructure
 sudo: required
@@ -10,13 +10,19 @@ sudo: required
 services:
   - docker
 
-# Install molecule
-install:
-  - pip install -r test-requirements.txt
+env:
+  matrix:
+    - ANSIBLE=2.3
+    - ANSIBLE=2.4
+    - ANSIBLE=2.5
 
-# Execute the tests using the molecule docker driver
+# Install tox
+install:
+  - pip install tox-travis
+
+# Execute tests
 script:
-  - molecule test --all
+  - tox
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
