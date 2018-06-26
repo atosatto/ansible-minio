@@ -9,6 +9,7 @@
 
 **Merged pull requests:**
 
+- Add option to create minio clusters [\#19](https://github.com/atosatto/ansible-minio/pull/19) ([SuperQ](https://github.com/SuperQ))
 - checksum validation [\#18](https://github.com/atosatto/ansible-minio/pull/18) ([paulfantom](https://github.com/paulfantom))
 - Add fedora to supported platforms [\#17](https://github.com/atosatto/ansible-minio/pull/17) ([paulfantom](https://github.com/paulfantom))
 - Update systemd service file [\#16](https://github.com/atosatto/ansible-minio/pull/16) ([paulfantom](https://github.com/paulfantom))
