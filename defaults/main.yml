@@ -22,7 +22,11 @@ minio_server_make_datadirs: true
 minio_server_cluster_nodes: [ ]
 
 # Additional minio server CLI options
+# To set config dir, see minio_config_dir
 minio_server_opts: ""
+
+# Directory to store minio config. Will default to minio_user/.minio if not defined
+minio_config_dir: ""
 
 # Minio access and secret keys
 minio_access_key: ""

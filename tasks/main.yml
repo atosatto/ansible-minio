@@ -31,6 +31,14 @@
     group: "{{ minio_group }}"
     shell: /bin/bash
 
+- name: create minio config dir
+  file:
+    path: "{{ minio_config_dir }}"
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    state: directory
+  when: minio_config_dir is defined
+
 - include: server.yml
   when: minio_install_server
 
