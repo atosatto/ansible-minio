@@ -11,7 +11,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 @pytest.fixture()
 def AnsibleDefaults(Ansible):
     with open("../../defaults/main.yml", 'r') as stream:
-      return yaml.load(stream)
+        return yaml.load(stream)
 
 
 @pytest.mark.parametrize('minio_bin_var', [
