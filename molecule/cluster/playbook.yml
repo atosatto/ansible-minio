@@ -15,4 +15,3 @@
       - "http://{{ ansible_hostname }}:9091/test4"
   roles:
     - ansible-minio
-
