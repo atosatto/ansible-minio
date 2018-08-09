@@ -46,17 +46,17 @@ minio_server_addr: ":9091"
 The Minio server listen address.
 
 ```yaml
-minio_server_datadirs: [ ]
+minio_server_datadirs:
+  - /var/lib/minio
 ```
 
 Directories of the folder containing the minio server data
-**NB**: This variable must always be set by the role, otherwise the minio service will not start.
 
 ```yaml
 minio_server_make_datadirs: true
 ```
 
-Create directories from `minio_server_datadirs` 
+Create directories from `minio_server_datadirs`
 
 ```yaml
 minio_server_cluster_nodes: [ ]
@@ -78,6 +78,13 @@ minio_server_cluster_nodes:
   - 'https://server3/minio-data'
   - ...
 ```
+
+```yaml
+minio_server_env_extra: ""
+```
+
+Additional environment variables to be set in Minio server environment
+
 
 ```yaml
 minio_server_opts: ""

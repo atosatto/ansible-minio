@@ -4,5 +4,3 @@
   any_errors_fatal: true
   roles:
     - ansible-minio
-  vars:
-    minio_server_datadirs: [ "/minio-test" ]

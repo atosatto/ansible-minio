@@ -1,0 +1,12 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Install ansible support packages
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - ca-certificates
+      when: ansible_os_family == 'Debian'

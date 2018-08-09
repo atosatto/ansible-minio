@@ -2,8 +2,6 @@
 
 - hosts: all
   any_errors_fatal: true
-  roles:
-    - ansible-minio
   vars:
     minio_server_datadirs:
       - "/test1"
@@ -15,3 +13,5 @@
       - "http://{{ ansible_hostname }}:9091/test2"
       - "http://{{ ansible_hostname }}:9091/test3"
       - "http://{{ ansible_hostname }}:9091/test4"
+  roles:
+    - ansible-minio
