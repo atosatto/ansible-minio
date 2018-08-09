@@ -8,6 +8,6 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 def test_minio_service(host):
 
-  s = host.service('minio')
-  assert s.is_running
-  assert s.is_enabled
+    s = host.service('minio')
+    assert s.is_running
+    assert s.is_enabled
