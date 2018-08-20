@@ -80,6 +80,12 @@ minio_server_cluster_nodes:
 ```
 
 ```yaml
+minio_server_env_extra: ""
+```
+
+Additional environment variables to be set in Minio server environment
+
+```yaml
 minio_server_opts: ""
 ```
 
