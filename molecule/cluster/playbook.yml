@@ -15,4 +15,3 @@
       - "http://{{ ansible_hostname }}:9091/test2"
       - "http://{{ ansible_hostname }}:9091/test3"
       - "http://{{ ansible_hostname }}:9091/test4"
-
