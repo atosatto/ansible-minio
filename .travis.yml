@@ -12,9 +12,9 @@ services:
 
 env:
   matrix:
-    - ANSIBLE=2.3
     - ANSIBLE=2.4
     - ANSIBLE=2.5
+    - ANSIBLE=2.6
 
 # Install tox
 install:

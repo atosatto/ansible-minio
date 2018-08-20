@@ -1,38 +1,14 @@
 ---
-- include: preflight.yml
 
-- name: add the python sni support to legacy python installations
+- name: Add sni support to legacy python installations
   include: python_sni.yml
   when:
     - ansible_os_family == 'Debian'
     - ansible_python_version is version_compare('2.6.0', '>=')
     - ansible_python_version is version_compare('2.7.9', '<')
 
-- name: install ansible support packages
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - ca-certificates
-  register: _install_packages
-  until: _install_packages is succeeded
-  retries: 5
-  delay: 2
-  when: ansible_os_family == 'Debian'
-
-- name: create minio group
-  group:
-    name: "{{ minio_group }}"
-    state: present
-
-- name: create minio user
-  user:
-    name: "{{ minio_user }}"
-    group: "{{ minio_group }}"
-    shell: /bin/bash
-
-- include: server.yml
+- include: install-server.yml
   when: minio_install_server
 
-- include: client.yml
+- include: install-client.yml
   when: minio_install_client
