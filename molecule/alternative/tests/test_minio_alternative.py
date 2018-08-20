@@ -14,13 +14,23 @@ def AnsibleDefaults(Ansible):
         return yaml.load(stream)
 
 
+def test_minio_server_env_file(host, AnsibleDefaults):
+
+    f = host.file('/opt/minio')
+    assert f.is_file
+    assert f.exists
+    assert f.user == 'root'
+    assert f.group == AnsibleDefaults['minio_group']
+    assert oct(f.mode) == '0640'
+
+
 @pytest.mark.parametrize('minio_datadir', [
-    '/test1',
-    '/test2',
-    '/test3',
-    '/test4'
+    '/srv/data1',
+    '/srv/data2',
+    '/srv/data3',
+    '/srv/data4'
 ])
-def test_directories(host, AnsibleDefaults, minio_datadir):
+def test_minio_server_data_directories(host, AnsibleDefaults, minio_datadir):
 
     d = host.file(minio_datadir)
     assert d.is_directory
@@ -28,3 +38,8 @@ def test_directories(host, AnsibleDefaults, minio_datadir):
     assert d.user == AnsibleDefaults['minio_user']
     assert d.group == AnsibleDefaults['minio_group']
     assert oct(d.mode) == '0750'
+
+
+def test_minio_server_webserver(host):
+
+    host.socket("tcp://127.0.0.1:80").is_listening

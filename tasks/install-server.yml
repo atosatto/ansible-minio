@@ -1,0 +1,75 @@
+---
+
+- name: Compose the Minio server download url
+  set_fact:
+    _minio_server_download_url: "https://dl.minio.io/server/minio/release/linux-{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}/minio"
+
+- name: "Get the Minio server checksum for {{ go_arch_map[ansible_architecture] | default(ansible_architecture) }} architecture"
+  set_fact:
+    _minio_server_checksum: "{{ lookup('url', _minio_server_download_url + '.sha256sum').split(' ')[0] }}"
+
+- name: Create Minio group
+  group:
+    name: "{{ minio_group }}"
+    state: present
+
+- name: Create Minio user
+  user:
+    name: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    shell: /bin/bash
+
+- name: Create the Minio data storage directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    mode: 0750
+  when: minio_server_make_datadirs
+  with_items: "{{ minio_server_datadirs }}"
+
+- name: Download the Minio server
+  get_url:
+    url: "{{ _minio_server_download_url }}"
+    dest: "{{ minio_server_bin }}"
+    owner: "root"
+    group: "root"
+    mode: 0755
+    checksum: "sha256:{{ _minio_server_checksum }}"
+  register: _download_server
+  until: _download_server is succeeded
+  retries: 5
+  delay: 2
+
+- name: Generate the Minio server envfile
+  template:
+    src: minio.env.j2
+    dest: "{{ minio_server_envfile }}"
+    owner: "root"
+    group: "{{ minio_group }}"
+    mode: 0640
+  notify: restart minio
+
+- name: Create the Minio server systemd config
+  template:
+    src: minio.service.j2
+    dest: "/etc/systemd/system/minio.service"
+    owner: "root"
+    group: "root"
+  when: ansible_service_mgr == "systemd"
+
+- name: Create the Minio server init.d config
+  template:
+    src: minio.init.j2
+    dest: "/etc/init.d/minio"
+    owner: "root"
+    group: "root"
+    mode: 0750
+  when: ansible_service_mgr != "systemd"
+
+- name: Enable and start the Minio service
+  service:
+    name: minio
+    state: started
+    enabled: true

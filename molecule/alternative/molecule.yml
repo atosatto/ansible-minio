@@ -1,8 +1,13 @@
 ---
+
+scenario:
+  name: alternative
+
 driver:
   name: docker
-lint:
-  name: yamllint
+
+dependency:
+  name: galaxy
 
 platforms:
   - name: minio-centos-7
@@ -35,16 +40,22 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  options:
+    diff: True
+    v: True
   playbooks:
-    create: ../default/create.yml
-    prepare: ../default/prepare.yml
-    converge: playbook.yml
-    destroy: ../default/destroy.yml
+    create: ../resources/create.yml
+    prepare: ../resources/prepare.yml
+    destroy: ../resources/destroy.yml
 
-scenario:
-  name: alternative
+lint:
+  name: yamllint
+
 verifier:
   name: testinfra
+  options:
+    vvv: True
+  additional_files_or_dirs:
+    - ../resources/tests/
   lint:
     name: flake8
-    enabled: true
