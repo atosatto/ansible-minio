@@ -7,8 +7,16 @@
 - Allow minio to bind to lower ports [\#13](https://github.com/atosatto/ansible-minio/issues/13)
 - Add OS/arch support matrix [\#9](https://github.com/atosatto/ansible-minio/issues/9)
 
+**Closed issues:**
+
+- Service does not start under Ubuntu 16.04 LTS [\#20](https://github.com/atosatto/ansible-minio/issues/20)
+
 **Merged pull requests:**
 
+- Pin the version of ferrarimarco/github-changelog-generator to prevent the CI from hanging [\#26](https://github.com/atosatto/ansible-minio/pull/26) ([atosatto](https://github.com/atosatto))
+- Improved tasks and tests layout [\#25](https://github.com/atosatto/ansible-minio/pull/25) ([atosatto](https://github.com/atosatto))
+- Set a default value for the 'minio\_server\_datadirs' variable [\#24](https://github.com/atosatto/ansible-minio/pull/24) ([atosatto](https://github.com/atosatto))
+- Allow to inject additional Minio server environment variables [\#23](https://github.com/atosatto/ansible-minio/pull/23) ([atosatto](https://github.com/atosatto))
 - Add option to create minio clusters [\#19](https://github.com/atosatto/ansible-minio/pull/19) ([SuperQ](https://github.com/SuperQ))
 - checksum validation [\#18](https://github.com/atosatto/ansible-minio/pull/18) ([paulfantom](https://github.com/paulfantom))
 - Add fedora to supported platforms [\#17](https://github.com/atosatto/ansible-minio/pull/17) ([paulfantom](https://github.com/paulfantom))
