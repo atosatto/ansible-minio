@@ -115,7 +115,7 @@ None.
 - name: "Install Minio"
   hosts: all
   roles:
-    - atosatto.minio
+    - { role: atosatto.minio, become: yes }
   vars:
     minio_server_datadirs: [ "/minio-test" ]
 ```
