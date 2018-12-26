@@ -7,7 +7,7 @@
 ## - fping
 ## - iptables
 
-{% set minio_nodes = minio_server_cluster_nodes | join('" "') | replace("http://", "") | regex_replace ('/*', "") %}
+{% set minio_nodes = minio_server_cluster_nodes | join('" "') | replace("http://", "") | regex_replace ('\/[a-zA-Z0-9]+', "") | regex_replace (':[0-9]+', "") %}
 
 NODES=("{{ minio_nodes }}")
 
