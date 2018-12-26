@@ -36,3 +36,6 @@
 
 - include: client.yml
   when: minio_install_client
+
+- include: circuitbreaker.yml
+  when: minio_enable_circuitbreaker

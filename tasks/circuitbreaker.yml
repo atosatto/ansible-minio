@@ -1,0 +1,46 @@
+---
+- name: install circuit breaker requirements
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - fping
+    - iptables
+  register: _install_packages
+  until: _install_packages is succeeded
+  retries: 5
+  delay: 2
+
+- name: Create circuit breaker systemd service
+  copy:
+    src: ./files/circuit-break.service
+    dest: /etc/systemd/system/circuit-break.service
+    mode: 0644
+    owner: root
+    group: root
+
+- name: create the circuit breaker systemd timer
+  template:
+    src: circuit-breaker.timer.j2
+    dest: "/etc/systemd/system/circuit-break.timer"
+  when: ansible_service_mgr == "systemd"
+
+- name: create the circuit breaker script
+  template:
+    src: circuit-breaker.j2
+    dest: "/usr/local/bin/circuit-breaker"
+    mode: 0750
+
+- name: enable and start the minio service
+  service:
+    name: circuit-break
+    daemon_reload: true
+    state: started
+    enabled: true
+
+- name: enable and start the minio service
+  service:
+    name: circuit-break.timer
+    daemon_reload: true
+    state: started
+    enabled: true
