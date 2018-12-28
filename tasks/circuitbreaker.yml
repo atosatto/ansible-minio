@@ -21,7 +21,7 @@
 
 - name: create the circuit breaker systemd timer
   template:
-    src: circuit-breaker.timer.j2
+    src: circuit-break.timer.j2
     dest: "/etc/systemd/system/circuit-break.timer"
   when: ansible_service_mgr == "systemd"
 
