@@ -37,3 +37,6 @@ minio_enable_circuitbreaker: true
 
 # Run frequency of the circuit breaker in systemd timer format(OnCalendar)
 minio_circuitbreaker_frequency: minutely
+
+minio_storage_class_standard: ""
+minio_storage_class_rrs: ""
