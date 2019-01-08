@@ -31,3 +31,12 @@ minio_secret_key: ""
 # Switches to enable/disable the minio server and/or minio client installation.
 minio_install_server: true
 minio_install_client: true
+
+# Enable the minio clustered circuit breaker
+minio_enable_circuitbreaker: true
+
+# Run frequency of the circuit breaker in systemd timer format(OnCalendar)
+minio_circuitbreaker_frequency: minutely
+
+minio_storage_class_standard: ""
+minio_storage_class_rrs: ""

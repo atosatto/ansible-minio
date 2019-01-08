@@ -1,0 +1,11 @@
+[Unit]
+Description=Run the Minio circuit breaker service 
+
+[Timer]
+AccuracySec=1
+OnCalendar={{ minio_circuitbreaker_frequency }}
+RemainAfterElapse=no
+Unit=circuit-break.service
+
+[Install]
+WantedBy=timers.target

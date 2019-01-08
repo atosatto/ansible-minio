@@ -1,0 +1,31 @@
+#!/bin/bash
+
+##
+## Requirements:
+## -------------
+##
+## - fping
+## - iptables
+
+# This line sets the variable minio_nodes with only the hostnames separeted by a space, without protocol, port and path.
+{% set minio_nodes = minio_server_cluster_nodes | join('" "') | replace("http://", "") | regex_replace ('\/[a-zA-Z0-9]+', "") | regex_replace (':[0-9]+', "") %}
+
+NODES=("{{ minio_nodes }}")
+
+for NODE in ${NODES[@]}
+do
+  if [  "$NODE" != "$HOSTNAME" ]; then
+    RULE="-d $NODE -p tcp --dport 9000 -j REJECT --reject-with tcp-reset"
+    if ! fping -c1 -t500 "$NODE" >/dev/null 2>&1; then
+      if ! iptables -C OUTPUT $RULE >/dev/null 2>&1; then
+        logger -t minio-circuit-breaker "disabling $NODE"
+        iptables -A OUTPUT $RULE 
+      fi
+    else
+      if iptables -C OUTPUT $RULE >/dev/null 2>&1; then
+        logger -t minio-circuit-breaker "re-enabling $NODE"
+        iptables -D OUTPUT $RULE
+      fi
+    fi
+  fi
+done

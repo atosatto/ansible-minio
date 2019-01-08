@@ -1,0 +1,17 @@
+[Unit]
+Description=circuit-breaker script for Minio
+Wants=network-online.target
+After=network-online.target
+AssertFileIsExecutable=/usr/local/bin/circuit-breaker
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/circuit-breaker
+
+StandardOutput=journal
+StandardError=inherit
+
+SuccessExitStatus=0
+
+[Install]
+WantedBy=multi-user.target
