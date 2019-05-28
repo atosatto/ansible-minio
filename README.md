@@ -114,8 +114,9 @@ None.
 ```yaml
 - name: "Install Minio"
   hosts: all
+  become: yes
   roles:
-    - atosatto.minio
+    - { role: atosatto.minio }
   vars:
     minio_server_datadirs: [ "/minio-test" ]
 ```
