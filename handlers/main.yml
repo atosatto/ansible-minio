@@ -1,11 +1,22 @@
 ---
 
-- name: reload minio systemd
+# FIXME: make these parametric.
+- name: reload minio-server1 systemd
   systemd:
-    name: minio
+    name: minio-server1
     daemon_reload: True
 
-- name: restart minio
+- name: reload minio-server2 systemd
+  systemd:
+    name: minio-server2
+    daemon_reload: True
+
+- name: restart "minio-server1"
   service:
-    name: minio
+    name: minio-server1
+    state: restarted
+
+- name: restart "minio-server2"
+  service:
+    name: minio-server2
     state: restarted

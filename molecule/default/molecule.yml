@@ -10,31 +10,70 @@ dependency:
   name: galaxy
 
 platforms:
-  - name: minio-centos-7
-    image: paulfantom/centos-molecule:7
-    privileged: true
+  - name: instance
+    # for systemd, use these base images:
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    networks_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: minio-fedora-27
-    image: paulfantom/fedora-molecule:27
-    privileged: true
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro  # for systemd
+      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro  # for ntp/timedatectl
+    privileged: true  # for systemd
+    groups:
+      - minio
+    pre_build_image: true
+
+  - name: instance2
+    # for systemd, use these base images:
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    networks_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: minio-debian-9
-    image: paulfantom/debian-molecule:9
-    privileged: true
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro  # for systemd
+      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro  # for ntp/timedatectl
+    privileged: true  # for systemd
+    groups:
+      - minio
+    pre_build_image: true
+
+  - name: instance3
+    # for systemd, use these base images:
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    networks_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: minio-ubuntu-18.04
-    image: paulfantom/ubuntu-molecule:18.04
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: minio-ubuntu-16.04
-    image: paulfantom/ubuntu-molecule:16.04
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro  # for systemd
+      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro  # for ntp/timedatectl
+    privileged: true  # for systemd
+    groups:
+      - minio
+    pre_build_image: true
+
+#- name: minio-centos-7
+#    image: paulfantom/centos-molecule:7
+#    privileged: true
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#  - name: minio-fedora-27
+#    image: paulfantom/fedora-molecule:27
+#    privileged: true
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#  - name: minio-debian-9
+#    image: paulfantom/debian-molecule:9
+#    privileged: true
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#  - name: minio-ubuntu-18.04
+#    image: paulfantom/ubuntu-molecule:18.04
+#    privileged: true
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#  - name: minio-ubuntu-16.04
+#    image: paulfantom/ubuntu-molecule:16.04
+#    privileged: true
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 
 provisioner:
   name: ansible

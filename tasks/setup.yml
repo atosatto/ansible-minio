@@ -1,0 +1,11 @@
+---
+# needed for the 'ip' command to populate 'ansible_default_ipv4'
+- name: install iproute2
+  apt:
+    name: iproute2
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: populate 'ansible_default_ipv4'
+  setup:
+  when: ansible_default_ipv4 is not defined

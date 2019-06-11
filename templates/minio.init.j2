@@ -24,10 +24,10 @@ DAEMON="{{ minio_server_bin }}"
 USER="{{ minio_user }}"
 
 # Read configuration variable file if it is present
-[ -r "{{ minio_server_envfile }}" ] && . {{ minio_server_envfile }}
+[ -r "{{ layouts[layout]['minio_server_envfile'] }}" ] && . {{ layouts[layout]['minio_server_envfile'] }}
 
 # Make sure the MINIO_VOLUMES variable is defined
-[ -n "${MINIO_VOLUMES}" ] || log_daemon_msg "Variable MINIO_VOLUMES not set in {{ minio_server_envfile }}"
+[ -n "${MINIO_VOLUMES}" ] || log_daemon_msg "Variable MINIO_VOLUMES not set in {{ layouts[layout]['minio_server_envfile'] }}"
 
 # Set the DAEMON_ARGS variable
 DAEMON_ARGS="server $MINIO_OPTS $MINIO_VOLUMES"

@@ -1,4 +1,18 @@
 ---
+# two layouts: one for each minio instance we want to run on a node.
+layouts:
+# The first minio instance on this server.
+- layout1:
+    name: "server1"
+    minio_server_addr: ":9091"
+    minio_server_datadirs: "/var/lib/minio-server1"
+    minio_server_envfile:  "/etc/default/minio-server1"
+# The second minio instance on this server.
+- layout2:
+    name: "server2"
+    minio_server_addr: ":9092"
+    minio_server_datadirs: "/var/lib/minio-server2"
+    minio_server_envfile:  "/etc/default/minio-server2"
 
 # Minio binaries path
 minio_server_bin: /usr/local/bin/minio
@@ -12,15 +26,6 @@ minio_client_release: ""
 minio_user: minio
 minio_group: minio
 
-# Path to the file containing the ENV variables for the Minio server
-minio_server_envfile: /etc/default/minio
-
-# Minio server listen address
-minio_server_addr: ":9091"
-
-# Minio server data directories
-minio_server_datadirs:
-  - /var/lib/minio
 minio_server_make_datadirs: true
 
 # Minio server cluster node list.
@@ -39,3 +44,6 @@ minio_secret_key: ""
 # Switches to enable/disable the Minio server and/or Minio client installation.
 minio_install_server: true
 minio_install_client: true
+
+# The network interface to make services available on.
+minio_network_interface: "{% if ansible_default_ipv4 is defined %}{{ ansible_default_ipv4.interface }}{% else %}eth0{% endif %}"

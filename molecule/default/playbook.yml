@@ -1,6 +1,9 @@
 ---
-
 - hosts: all
   any_errors_fatal: true
+  pre_tasks:
+  - name: import yaml to disable gettys.
+    import_tasks: disable_getty.yml
   roles:
-    - ansible-minio
+    - { role: ansible-minio, layout: layout1 }
+    - { role: ansible-minio, layout: layout2 }
