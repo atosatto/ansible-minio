@@ -61,7 +61,7 @@
 - name: Identify all of the cluster members
   set_fact:
     minio_cluster_nodes: >-
-      {% for layout in layouts %}{% for host in groups["minio"] %}{{ hostvars[host]['ansible_' + minio_network_interface]['ipv4']['address'] }}{{ layouts[layout]['minio_server_addr'] }} {% endfor %}{% endfor %}
+      {% for layout in layouts %}{% for host in groups["minio"] %}http://{{ hostvars[host]['ansible_' + minio_network_interface]['ipv4']['address'] }}{{ layouts[layout]['minio_server_addr'] }}{{layouts[layout]['minio_server_datadirs']}} {% endfor %}{% endfor %}
 
 - name: layout dump
   debug:
