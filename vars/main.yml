@@ -1,19 +1,4 @@
 ---
-# two layouts: one for each minio instance we want to run on a node.
-layouts:
-# The first minio instance on this server.
-  layout1:
-    servicename: "minio-server1"
-    minio_server_addr: ":9091"
-    minio_server_datadirs: "/var/lib/minio-server1"
-    minio_server_envfile: "/etc/default/minio-server1"
-# The second minio instance on this server.
-  layout2:
-    servicename: "minio-server2"
-    minio_server_addr: ":9092"
-    minio_server_datadirs: "/var/lib/minio-server2"
-    minio_server_envfile: "/etc/default/minio-server2"
-
 go_arch_map:
   i386: '386'
   x86_64: 'amd64'
