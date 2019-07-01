@@ -1,8 +1,17 @@
 ---
-
-- name: Compose the Minio server download url
+- name: Compose the Minio server download base url
   set_fact:
-    _minio_server_download_url: "https://dl.minio.io/server/minio/release/linux-{{ go_arch }}/minio"
+    _minio_server_download_base_url: "https://dl.minio.io/server/minio/release/linux-{{ go_arch }}"
+
+- name: Compose the Minio server download url with lastest release
+  set_fact:
+    _minio_server_download_url: "{{ _minio_server_download_base_url }}/minio"
+  when: minio_server_release | length == 0
+
+- name: "Compose the Minio server download url with release {{ minio_server_release }}"
+  set_fact:
+    _minio_server_download_url: "{{ _minio_server_download_base_url }}/archive/minio.{{ minio_server_release }}"
+  when: minio_server_release | length > 0
 
 - name: "Get the Minio server checksum for {{ go_arch }} architecture"
   set_fact:
