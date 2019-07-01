@@ -73,3 +73,17 @@
     name: minio
     state: started
     enabled: true
+
+- name: Compose the Minio server full address (config is :port)
+  set_fact:
+    _minio_server_full_addr: "localhost{{ minio_server_addr }}"
+  when: minio_server_addr is regex("^:[0-9]+")
+
+- name: Check the Minio server is up (address is port only)
+  uri:
+    url: "http://{{ _minio_server_full_addr | default(minio_server_addr) }}/minio/health/live"
+    status_code: 200
+  register: _check_server_status
+  until: _check_server_status.status == 200
+  retries: 30
+  delay: 2
