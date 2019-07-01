@@ -2,9 +2,9 @@
 
 - name: Compose the Minio server download url
   set_fact:
-    _minio_server_download_url: "https://dl.minio.io/server/minio/release/linux-{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}/minio"
+    _minio_server_download_url: "https://dl.minio.io/server/minio/release/linux-{{ go_arch }}/minio"
 
-- name: "Get the Minio server checksum for {{ go_arch_map[ansible_architecture] | default(ansible_architecture) }} architecture"
+- name: "Get the Minio server checksum for {{ go_arch }} architecture"
   set_fact:
     _minio_server_checksum: "{{ lookup('url', _minio_server_download_url + '.sha256sum').split(' ')[0] }}"
 
