@@ -20,3 +20,20 @@
   until: _download_client is succeeded
   retries: 5
   delay: 2
+
+- name: Check if the Minio client config file exists
+  stat:
+    path: ~/.mc/config.json
+  register: mc_config_file
+
+- name: Compose the Minio server full address (config is :port)
+  set_fact:
+    _minio_server_full_addr: "localhost{{ minio_server_addr }}"
+  when: minio_server_addr is regex("^:[0-9]+")
+
+- name: Configure local host for the Minio client
+  command: "mc config host add local http://{{ _minio_server_full_addr }} {{ minio_access_key }} {{ minio_secret_key }}"
+  when:
+    - not mc_config_file.stat.exists
+    - minio_access_key
+    - minio_secret_key
