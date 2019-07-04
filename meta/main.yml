@@ -28,7 +28,7 @@ galaxy_info:
     - system
     - minio
     - storage
-    - object-storage
+    - objectstorage
     - s3
 
 dependencies: []

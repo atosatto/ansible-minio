@@ -2,30 +2,28 @@
 
 - name: install python-pip and SNI support packages
   package:
-    name: "{{ item }}"
+    name:
+      - python-pip
+      - python-dev
+      - libssl-dev
+      - libffi-dev
     state: present
   register: _install_python_packages
   until: _install_python_packages is succeeded
   retries: 5
   delay: 2
-  with_items:
-    - python-pip
-    - python-dev
-    - libssl-dev
-    - libffi-dev
 
 # There extra pip dependencies are needed to add SSL SNI support to
 # Python version prior to 2.7.9. SNI support is needed by the Ansible
 # get_url module in server.yml and client.yml.
 - name: install the Python SNI python-pip dependencies.
   pip:
-    name: "{{ item }}"
+    name:
+      - pyopenssl
+      - ndg-httpsclient
+      - pyasn1
     state: present
   register: _install_pip_packages
   until: _install_pip_packages is succeeded
   retries: 5
   delay: 2
-  with_items:
-    - pyopenssl
-    - ndg-httpsclient
-    - pyasn1

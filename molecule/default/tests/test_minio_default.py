@@ -9,7 +9,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 @pytest.fixture()
-def AnsibleDefaults(Ansible):
+def AnsibleDefaults():
     with open("../../defaults/main.yml", 'r') as stream:
         return yaml.load(stream)
 
