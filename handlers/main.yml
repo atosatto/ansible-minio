@@ -1,5 +1,10 @@
 ---
 
+- name: reload minio systemd
+  systemd:
+    name: minio
+    daemon_reload: True
+
 - name: restart minio
   service:
     name: minio
