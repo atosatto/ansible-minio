@@ -7,6 +7,10 @@ Wants=network-online.target
 After=network-online.target
 AssertFileIsExecutable={{ minio_server_bin }}
 
+# Avoid noisy crashloops
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
 [Service]
 WorkingDirectory=/usr/local/
 
@@ -20,8 +24,8 @@ ExecStartPre=/bin/bash -c "[ -n \"${MINIO_VOLUMES}\" ] || echo \"Variable MINIO_
 
 ExecStart={{ minio_server_bin }} server $MINIO_OPTS $MINIO_VOLUMES
 
-# Let systemd restart this service only if it has ended with the clean exit code or signal.
-Restart=on-success
+# Let systemd always restart this service, in limits defined by StartLimitIntervalSec and StartLimitBurst.
+Restart=always
 
 StandardOutput=journal
 StandardError=inherit
