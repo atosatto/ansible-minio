@@ -4,6 +4,7 @@
 
 **Closed issues:**
 
+- Why systemd Restart=on-success rule ? [\#35](https://github.com/atosatto/ansible-minio/issues/35)
 - Fails to run from master branch [\#22](https://github.com/atosatto/ansible-minio/issues/22)
 
 **Merged pull requests:**
