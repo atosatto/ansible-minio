@@ -9,6 +9,8 @@
 **Merged pull requests:**
 
 - Restart minio service on binary or service config update [\#38](https://github.com/atosatto/ansible-minio/pull/38) ([sberthier](https://github.com/sberthier))
+- Fix ansible-lint error on double quote [\#37](https://github.com/atosatto/ansible-minio/pull/37) ([sberthier](https://github.com/sberthier))
+- Systemd service: Restart=always [\#36](https://github.com/atosatto/ansible-minio/pull/36) ([sberthier](https://github.com/sberthier))
 - Fix Travis errors. [\#33](https://github.com/atosatto/ansible-minio/pull/33) ([SuperQ](https://github.com/SuperQ))
 - Simplify go\_arch setup [\#32](https://github.com/atosatto/ansible-minio/pull/32) ([SuperQ](https://github.com/SuperQ))
 - Convert template comments [\#31](https://github.com/atosatto/ansible-minio/pull/31) ([SuperQ](https://github.com/SuperQ))
