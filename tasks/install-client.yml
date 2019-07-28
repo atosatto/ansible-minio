@@ -1,8 +1,18 @@
 ---
 
-- name: Compose the Minio client download url
+- name: Compose the Minio client download base url
   set_fact:
-    _minio_client_download_url: "https://dl.minio.io/client/mc/release/linux-{{ go_arch }}/mc"
+    _minio_client_download_base_url: "https://dl.minio.io/client/mc/release/linux-{{ go_arch }}"
+
+- name: Compose the Minio client download url with lastest release
+  set_fact:
+    _minio_client_download_url: "{{ _minio_client_download_base_url }}/mc"
+  when: minio_client_release | length == 0
+
+- name: "Compose the Minio client download url with release {{ minio_client_release }}"
+  set_fact:
+    _minio_client_download_url: "{{ _minio_client_download_base_url }}/archive/mc.{{ minio_client_release }}"
+  when: minio_client_release | length > 0
 
 - name: "Get the Minio client checksum for {{ go_arch }} architecture"
   set_fact:

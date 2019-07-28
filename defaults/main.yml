@@ -4,6 +4,10 @@
 minio_server_bin: /usr/local/bin/minio
 minio_client_bin: /usr/local/bin/mc
 
+# Minio release to install. default if lastet
+minio_server_release: ""
+minio_client_release: ""
+
 # Runtime user and group for the Minio server service
 minio_user: minio
 minio_group: minio
