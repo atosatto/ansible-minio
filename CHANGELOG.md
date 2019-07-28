@@ -15,6 +15,7 @@
 - Fix Travis errors. [\#33](https://github.com/atosatto/ansible-minio/pull/33) ([SuperQ](https://github.com/SuperQ))
 - Simplify go\_arch setup [\#32](https://github.com/atosatto/ansible-minio/pull/32) ([SuperQ](https://github.com/SuperQ))
 - Convert template comments [\#31](https://github.com/atosatto/ansible-minio/pull/31) ([SuperQ](https://github.com/SuperQ))
+- Add 'minio\_server\_release' and 'minio\_client\_release' variables. [\#29](https://github.com/atosatto/ansible-minio/pull/29) ([sberthier](https://github.com/sberthier))
 - Add become: yes to playbook example [\#27](https://github.com/atosatto/ansible-minio/pull/27) ([till](https://github.com/till))
 
 ## [v1.1.0](https://galaxy.ansible.com/atosatto/minio) (2018-08-20)
