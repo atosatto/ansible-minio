@@ -27,7 +27,8 @@ minio_server_make_datadirs: true
 minio_server_cluster_nodes: [ ]
 
 # Additional environment variables to be set in minio server environment
-minio_server_env_extra: ""
+minio_server_env_extras: [ ]
+minio_server_env_extra: ''  # deprecated
 
 # Additional Minio server CLI options
 minio_server_opts: ""

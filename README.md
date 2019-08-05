@@ -88,7 +88,8 @@ minio_server_cluster_nodes:
 ```
 
 ```yaml
-minio_server_env_extra: ""
+minio_server_env_extras: []
+minio_server_env_extra: "" # deprecated
 ```
 
 Additional environment variables to be set in Minio server environment
