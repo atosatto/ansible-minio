@@ -2,11 +2,7 @@
 
 - name: install python-pip and SNI support packages
   package:
-    name:
-      - python-pip
-      - python-dev
-      - libssl-dev
-      - libffi-dev
+    name: "{{ minio_python_sni_packages }}"
     state: present
   register: _install_python_packages
   until: _install_python_packages is succeeded
@@ -18,10 +14,7 @@
 # get_url module in server.yml and client.yml.
 - name: install the Python SNI python-pip dependencies.
   pip:
-    name:
-      - pyopenssl
-      - ndg-httpsclient
-      - pyasn1
+    name: "{{ minio_python_sni_pip_dependencies }}"
     state: present
   register: _install_pip_packages
   until: _install_pip_packages is succeeded

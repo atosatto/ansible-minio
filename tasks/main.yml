@@ -1,14 +1,23 @@
 ---
 
-- name: Add sni support to legacy python installations
+- name: "purge minio"
+  include_tasks: purge.yml
+  when: minio_purge == "yes"
+
+- name: "add sni support to legacy python installations"
   include_tasks: python_sni.yml
   when:
     - ansible_os_family == 'Debian'
     - ansible_python_version is version_compare('2.6.0', '>=')
     - ansible_python_version is version_compare('2.7.9', '<')
+    - minio_purge != "yes"
 
 - include_tasks: install-server.yml
-  when: minio_install_server
+  when:
+    - minio_install_server
+    - minio_purge != "yes"
 
 - include_tasks: install-client.yml
-  when: minio_install_client
+  when:
+    - minio_install_client
+    - minio_purge != "yes"

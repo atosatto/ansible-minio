@@ -39,3 +39,8 @@ minio_secret_key: ""
 # Switches to enable/disable the Minio server and/or Minio client installation.
 minio_install_server: true
 minio_install_client: true
+
+# Purge minio
+minio_purge: "no"
+minio_purge_python_sni: "yes"
+minio_purge_data: "yes"

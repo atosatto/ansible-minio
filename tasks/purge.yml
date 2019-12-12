@@ -1,0 +1,59 @@
+---
+- name: "stop minio service"
+  service:
+    name: minio
+    state: stopped
+    enabled: false
+  ignore_errors: true
+
+- name: "remove minio systemd service"
+  file:
+    path: "{{ minio_service_systemd_path }}"
+    state: "absent"
+  when: ansible_service_mgr == "systemd"
+
+- name: "remove minio init service"
+  file:
+    path: "{{ minio_service_initd_path }}"
+    state: "absent"
+  when: ansible_service_mgr != "systemd"
+
+- name: "remove minio binary"
+  file:
+    path: "{{ item }}"
+    state: "absent"
+  with_items:
+    - "{{ minio_server_bin }}"
+    - "{{ minio_client_bin }}"
+
+- name: "remove minio user"
+  user:
+    name: "{{ minio_user }}"
+    state: "absent"
+
+- name: "remove minio group"
+  group:
+    name: "{{ minio_group }}"
+    state: "absent"
+
+- name: "remove minio python sni support system packages"
+  package:
+    name: "{{ item }}"
+    state: "absent"
+  with_items: "{{ minio_python_sni_packages }}"
+  when: minio_purge_python_sni == "yes"
+
+- name: "remove minio python sni support pip packages"
+  pip:
+    name: "{{ item }}"
+    state: "absent"
+  with_items: "{{ minio_python_sni_pip_dependencies }}"
+  ignore_errors: true
+  when: minio_purge_python_sni == "yes"
+
+- name: "remove minio data storage directories"
+  file:
+    path: "{{ item }}"
+    state: "absent"
+  with_items: "{{ minio_server_datadirs }}"
+  when: minio_purge_data == "yes"
