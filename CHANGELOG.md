@@ -2,6 +2,10 @@
 
 ## [**Next release**](https://galaxy.ansible.com/atosatto/minio)
 
+**Implemented enhancements:**
+
+- Secure user [\#15](https://github.com/atosatto/ansible-minio/issues/15)
+
 **Closed issues:**
 
 - Why systemd Restart=on-success rule ? [\#35](https://github.com/atosatto/ansible-minio/issues/35)
@@ -9,6 +13,7 @@
 
 **Merged pull requests:**
 
+- Change minio user to system user [\#41](https://github.com/atosatto/ansible-minio/pull/41) ([drakmail](https://github.com/drakmail))
 - Restart minio service on binary or service config update [\#38](https://github.com/atosatto/ansible-minio/pull/38) ([sberthier](https://github.com/sberthier))
 - Fix ansible-lint error on double quote [\#37](https://github.com/atosatto/ansible-minio/pull/37) ([sberthier](https://github.com/sberthier))
 - Systemd service: Restart=always [\#36](https://github.com/atosatto/ansible-minio/pull/36) ([sberthier](https://github.com/sberthier))
