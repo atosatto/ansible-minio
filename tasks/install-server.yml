@@ -26,7 +26,8 @@
   user:
     name: "{{ minio_user }}"
     group: "{{ minio_group }}"
-    shell: /bin/bash
+    system: "yes"
+    shell: "/usr/sbin/nologin"
 
 - name: Create the Minio data storage directories
   file:
