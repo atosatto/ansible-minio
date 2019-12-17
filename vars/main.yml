@@ -7,3 +7,20 @@ go_arch_map:
   armv6l: 'arm6vl'
 
 go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+
+# Python SNI packages
+minio_python_sni_packages:
+  - python-pip
+  - python-dev
+  - libssl-dev
+  - libffi-dev
+
+# There extra pip dependencies are needed to add SSL SNI support to
+# Python version prior to 2.7.9.
+minio_python_sni_pip_dependencies:
+  - pyopenssl
+  - ndg-httpsclient
+  - pyasn1
+
+minio_service_systemd_path: "/etc/systemd/system/minio.service"
+minio_service_initd_path: "/etc/init.d/minio"
