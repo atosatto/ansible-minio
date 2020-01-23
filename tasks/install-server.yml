@@ -21,13 +21,16 @@
   group:
     name: "{{ minio_group }}"
     state: present
+  when: minio_usergroup_manage|bool
 
 - name: Create Minio user
   user:
     name: "{{ minio_user }}"
     group: "{{ minio_group }}"
     system: "yes"
+    create_home: no
     shell: "/usr/sbin/nologin"
+  when: minio_usergroup_manage|bool
 
 - name: Create the Minio data storage directories
   file:

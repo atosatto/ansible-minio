@@ -11,6 +11,7 @@ minio_client_release: ""
 # Runtime user and group for the Minio server service
 minio_user: minio
 minio_group: minio
+minio_usergroup_manage: true
 
 # Path to the file containing the ENV variables for the Minio server
 minio_server_envfile: /etc/default/minio

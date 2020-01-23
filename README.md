@@ -36,10 +36,13 @@ Can be 'RELEASE.2019-06-27T21-13-50Z' for instance.
 ```yaml
 minio_user: minio
 minio_group: minio
+minio_usergroup_manage: true
 ```
 
-Name and group of the user running the minio server.
-**NB**: This role automatically creates the minio user and/or group if these does not exist in the system.
+Name and group of the user running the minio server. Without explicitly
+disabling `minio_usergroup_manage: false` this role will create/update this
+user and group. The created/updated user will be installed/updated as a system
+user.
 
 ```yaml
 minio_server_envfile: /etc/default/minio
