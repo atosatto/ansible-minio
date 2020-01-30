@@ -1,0 +1,26 @@
+---
+- name: Validate access key
+  fail:
+    msg: "minio_access_key is set but must be at least three characters"
+  when: minio_access_key|length < 3 and minio_access_key|length != 0
+
+- name: Validate secret key
+  fail:
+    msg: "minio_secret_key is set but must be at least 8 characters"
+  when: minio_secret_key|length < 8 and minio_secret_key|length != 0
+
+- name: Setup __minio_volumes (cluster context)
+  set_fact:
+    __minio_volumes: "{{ minio_server_cluster_nodes | join(' ') }}"
+  when:
+    minio_server_cluster_nodes|length > 0
+
+- name: Setup __minio_volumes (single node)
+  set_fact:
+    __minio_volumes: "{{ minio_server_datadirs | join(' ') }}"
+  when: minio_server_datadirs|length > 0 and minio_server_cluster_nodes|length == 0
+
+- name: Validate __minio_volumes
+  fail:
+    msg: "Please set minio_server_cluster_nodes or minio_server_datadirs"
+  when: __minio_volumes|length == 0
