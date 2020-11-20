@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  any_errors_fatal: true
+  roles:
+    - role: ansible-minio
+      vars:
+        minio_layout: server1
+    - role: ansible-minio
+      vars:
+        minio_layout: server2

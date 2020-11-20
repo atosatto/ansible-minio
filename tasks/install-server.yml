@@ -17,6 +17,68 @@
   set_fact:
     _minio_server_checksum: "{{ lookup('url', _minio_server_download_url + '.sha256sum').split(' ')[0] }}"
 
+- name: "Set service name"
+  set_fact:
+    _minio_service_name: >-
+      {%- if minio_layout is defined and minio_layout | length > 0 -%}
+        minio-{{ minio_layout }}
+      {%- else -%}
+        minio
+      {%- endif -%}
+
+- name: "Override cluster nodes based on given layouts"
+  set_fact:
+    # NOTE: This weird little thing is Jinja that generates an array represented with valid JSON.
+    #       While generating YAML would be interpreted as a simple string containing escaped
+    #       line breaks, JSON on the other hand seem to actually get encoded along the way and
+    #       becomes a proper List.
+    #       Please note the surrounding brackets and the comma before the inner loop closing
+    minio_server_cluster_nodes: >-
+      [
+        {%- for layout in minio_layouts -%}
+          {%- for host in groups['minio'] -%}
+            "{{
+              [
+                'http://',
+                (
+                  (
+                    hostvars[host][
+                      'ansible_' + hostvars[host]['minio_network_interface']
+                    ]['ipv4']['address']
+                    if (
+                      hostvars[host]['minio_network_interface'] is defined
+                      and hostvars[host]['minio_network_interface'] | length > 0
+                    )
+                    else hostvars[host].ansible_default_ipv4.address
+                  )
+                  | default(hostvars[host].ansible_all_ipv4_addresses[0])
+                ),
+                minio_layouts[layout]['server_addr'],
+                minio_layouts[layout]['server_datadir'] | default('/var/lib/minio-' + layout)
+              ] | join('')
+            }}"
+            ,
+          {%- endfor -%}
+        {%- endfor -%}
+      ]
+  when: minio_layout is defined and minio_layout | length > 0
+
+- name: "Override environment file if layout name is defined"
+  set_fact:
+    minio_server_envfile: "minio-{{ minio_layout }}"
+  when: minio_layout is defined and minio_layout | length > 0
+
+- name: "Override server address if layout name is defined"
+  set_fact:
+    minio_server_addr: "{{ minio_layouts[minio_layout]['server_addr'] }}"
+  when: minio_layout is defined and minio_layout | length > 0
+
+- name: "Override data directories if layout name is defined"
+  set_fact:
+    minio_server_datadirs:
+      - "{{ minio_layouts[minio_layout]['server_datadir'] | default('/var/lib/minio-' + minio_layout) }}"
+  when: minio_layout is defined and minio_layout | length > 0
+
 - name: Create Minio group
   group:
     name: "{{ minio_group }}"
@@ -29,10 +91,6 @@
     system: "yes"
     shell: "/usr/sbin/nologin"
 
-- name: layout dump
-  debug:
-    msg: "using layout {{ layout }}."
-
 - name: Create the Minio data storage directories
   file:
     path: "{{ item }}"
@@ -40,8 +98,8 @@
     owner: "{{ minio_user }}"
     group: "{{ minio_group }}"
     mode: 0750
-  when: minio_server_make_datadirs|bool
-  with_items: "{{ layouts[layout]['minio_server_datadirs'] }}"
+  when: minio_server_make_datadirs
+  with_items: "{{ minio_server_datadirs }}"
 
 - name: Download the Minio server
   get_url:
@@ -58,28 +116,23 @@
   notify: restart minio
 
 
-- name: Identify all of the cluster members
-  set_fact:
-    minio_cluster_nodes: >-
-      {% for layout in layouts %}{% for host in groups["minio"] %}http://{{ hostvars[host]['ansible_' + minio_network_interface]['ipv4']['address'] }}{{ layouts[layout]['minio_server_addr'] }}{{layouts[layout]['minio_server_datadirs']}} {% endfor %}{% endfor %}
-
-- name: layout dump
+- name: cluster dump
   debug:
-    msg: "using cluster map {{ minio_cluster_nodes }}."
+    msg: "using cluster map {{ minio_server_cluster_nodes }}."
 
 - name: Generate the Minio server envfile
   template:
     src: minio.env.j2
-    dest: "{{ layouts[layout]['minio_server_envfile'] }}"
+    dest: "{{ minio_server_envfile }}"
     owner: "root"
     group: "{{ minio_group }}"
     mode: 0640
-  notify: restart "{{ layouts[layout]['servicename'] }}"
+  notify: restart minio
 
 - name: Create the Minio server systemd config
   template:
     src: minio.service.j2
-    dest: "/etc/systemd/system/{{ layouts[layout]['servicename'] }}.service"
+    dest: "/etc/systemd/system/{{ _minio_service_name }}.service"
     owner: "root"
     group: "root"
   when: ansible_service_mgr == "systemd"
@@ -90,7 +143,7 @@
 - name: Create the Minio server init.d config
   template:
     src: minio.init.j2
-    dest: "/etc/init.d/{{ layouts[layout]['servicename'] }}"
+    dest: "/etc/init.d/{{ _minio_service_name }}"
     owner: "root"
     group: "root"
     mode: 0750
@@ -99,6 +152,6 @@
 
 - name: Enable and start the Minio service
   service:
-    name: "{{ layouts[layout]['servicename'] }}"
+    name: "{{ _minio_service_name }}"
     state: started
     enabled: true

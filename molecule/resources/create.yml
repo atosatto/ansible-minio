@@ -8,7 +8,6 @@
     - name: Create molecule instance(s)
       docker_container:
         name: "{{ item.name }}"
-        docker_host: "{{ item.docker_host | default('unix://var/run/docker.sock') }}"
         hostname: "{{ item.name }}"
         image: "{{ item.image }}"
         state: started

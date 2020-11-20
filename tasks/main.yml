@@ -7,8 +7,6 @@
     - ansible_python_version is version_compare('2.6.0', '>=')
     - ansible_python_version is version_compare('2.7.9', '<')
 
-- import_tasks: setup.yml
-
 - include_tasks: install-server.yml
   when: minio_install_server
 
