@@ -1,22 +1,32 @@
 ---
 
-- name: Compose the Minio client download base url
+- name: "Set the Minio client download url to default"
   set_fact:
-    _minio_client_download_base_url: "https://dl.minio.io/client/mc/release/linux-{{ go_arch }}"
-
-- name: Compose the Minio client download url with lastest release
-  set_fact:
-    _minio_client_download_url: "{{ _minio_client_download_base_url }}/mc"
-  when: minio_client_release | length == 0
+    _minio_client_download_url: "{{ minio_default_client_artifact_url }}"
 
 - name: "Compose the Minio client download url with release {{ minio_client_release }}"
   set_fact:
-    _minio_client_download_url: "{{ _minio_client_download_base_url }}/archive/mc.{{ minio_client_release }}"
-  when: minio_client_release | length > 0
+    _minio_client_download_url: "{{ minio_default_client_artifact_url }}.{{ minio_client_release }}"
+  when:
+    - minio_client_release | length > 0
+    - minio_client_artifact_url | length == 0
+
+- name: "Override the Minio client download url"
+  set_fact:
+    _minio_client_download_url: "{{ minio_client_artifact_url }}"
+  when:
+    - minio_client_artifact_url | length > 0
+    - minio_client_release | length == 0
 
 - name: "Get the Minio client checksum for {{ go_arch }} architecture"
   set_fact:
-    _minio_client_checksum: "{{ lookup('url', _minio_client_download_url + '.sha256sum').split(' ')[0] }}"
+    _minio_client_checksum: "sha256:{{ lookup('url', _minio_client_download_url + '.sha256sum').split(' ')[0] }}"
+  when: minio_client_artifact_checksum | length == 0
+
+- name: "Override the Minio client  checksum"
+  set_fact:
+    _minio_client_checksum: "{{ minio_client_artifact_checksum }}"
+  when: minio_client_artifact_checksum | length > 0
 
 - name: Download the Minio client
   get_url:
@@ -25,7 +35,7 @@
     owner: "root"
     group: "root"
     mode: 0755
-    checksum: "sha256:{{ _minio_client_checksum }}"
+    checksum: "{{ _minio_client_checksum }}"
   register: _download_client
   until: _download_client is succeeded
   retries: 5
