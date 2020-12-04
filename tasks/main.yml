@@ -12,3 +12,7 @@
 
 - include_tasks: install-client.yml
   when: minio_install_client
+
+# NOTE: handlers a triggered at *play* level not at the end of a role assignment
+# ISSUE: https://github.com/ansible/ansible/issues/15476
+- meta: flush_handlers

@@ -9,3 +9,10 @@
   service:
     name: "{{ _minio_service_name }}"
     state: restarted
+
+- name: verify minio is responsive
+  uri:
+    url: "http://127.0.0.1{{ minio_server_addr }}/minio/health/live"
+    timeout: 6
+  register: response
+  failed_when: response.status != 200

@@ -5,6 +5,13 @@
   gather_facts: false
   no_log: "{{ not lookup('env', 'MOLECULE_DEBUG') | bool }}"
   tasks:
+    - name: Create docker network(s)
+      docker_network:
+        name: "{{ item }}"
+        state: present
+        scope: local
+      with_items: "{{ molecule_yml.platforms | molecule_get_docker_networks }}"
+
     - name: Create molecule instance(s)
       docker_container:
         name: "{{ item.name }}"

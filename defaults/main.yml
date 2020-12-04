@@ -5,10 +5,19 @@ minio_layouts:
   server1:
     server_addr: ":9091"
   # server_datadir: String
-# The second minio instance on this server.
-  server2:
-    server_addr: ":9092"
-  # server_datadir: String
+#
+# The second minio instance on this server may look like.
+# server2:
+#   server_addr: ":9092"
+#   server_datadir: String
+
+# NOTE: to configure more instances on the same host, apply role multiple times
+# Control which layout is used every time the role is applied
+# minio_layout: String
+
+# It's impossible to definitively determine the group name from the host
+# this role is applied to, thus it can be overridden
+minio_group_name: "minio"
 
 # Minio binaries path
 minio_server_bin: /usr/local/bin/minio

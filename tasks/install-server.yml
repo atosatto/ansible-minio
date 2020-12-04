@@ -46,7 +46,7 @@
     minio_server_cluster_nodes: >-
       [
         {%- for layout in minio_layouts -%}
-          {%- for host in groups['minio'] -%}
+          {%- for host in groups[minio_group_name] -%}
             "{{
               [
                 'http://',
@@ -75,7 +75,7 @@
 
 - name: "Override environment file if layout name is defined"
   set_fact:
-    minio_server_envfile: "minio-{{ minio_layout }}"
+    minio_server_envfile: "/etc/default/minio-{{ minio_layout }}"
   when: minio_layout is defined and minio_layout | length > 0
 
 - name: "Override server address if layout name is defined"
@@ -88,6 +88,14 @@
     minio_server_datadirs:
       - "{{ minio_layouts[minio_layout]['server_datadir'] | default('/var/lib/minio-' + minio_layout) }}"
   when: minio_layout is defined and minio_layout | length > 0
+
+- name: "Check whether minio runs in distributed mode"
+  assert:
+    that:
+      - minio_access_key | length >= 3
+      - minio_secret_key | length >= 8
+    msg: "Running in distributed mode. Please define access_key and secret_key."
+  when: minio_server_cluster_nodes | length > 1
 
 - name: Create Minio group
   group:
@@ -123,7 +131,9 @@
   until: _download_server is succeeded
   retries: 5
   delay: 2
-  notify: restart minio
+  notify:
+    - restart minio
+    - verify minio is responsive
 
 
 - name: cluster dump
@@ -137,7 +147,9 @@
     owner: "root"
     group: "{{ minio_group }}"
     mode: 0640
-  notify: restart minio
+  notify:
+    - restart minio
+    - verify minio is responsive
 
 - name: Create the Minio server systemd config
   template:
@@ -149,6 +161,7 @@
   notify:
     - reload minio systemd
     - restart minio
+    - verify minio is responsive
 
 - name: Create the Minio server init.d config
   template:
@@ -158,7 +171,9 @@
     group: "root"
     mode: 0750
   when: ansible_service_mgr != "systemd"
-  notify: restart minio
+  notify:
+    - restart minio
+    - verify minio is responsive
 
 - name: Enable and start the Minio service
   service:
