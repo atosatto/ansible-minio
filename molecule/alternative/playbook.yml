@@ -4,7 +4,13 @@
   any_errors_fatal: true
   roles:
     - ansible-minio
+  vars_files:
+    - ./../resources/vars.yml
   vars:
+    minio_server_artifact_url: https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2021-03-17T02-33-02Z
+    minio_server_artifact_checksum: sha256:475f878614021769dba33fc051124834ac2131b52e52794f83f7c21aea51444a
+    minio_client_artifact_url: https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2021-03-23T05-46-11Z
+    minio_client_artifact_checksum: sha256:088efeb053cdb06f8450533452ad0fae859758134a953cb353072236d2abb4ee
     minio_server_envfile: "/opt/minio"
     minio_server_addr: ":80"
     minio_server_datadirs:

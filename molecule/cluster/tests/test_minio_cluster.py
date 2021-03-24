@@ -10,7 +10,8 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 @pytest.fixture()
 def AnsibleDefaults():
-    with open('../../defaults/main.yml', 'r') as stream:
+    dir_path = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(dir_path, './../../../defaults/main.yml'), 'r') as stream:
         return yaml.load(stream)
 
 
@@ -27,4 +28,4 @@ def test_directories(host, AnsibleDefaults, minio_datadir):
     assert d.exists
     assert d.user == AnsibleDefaults['minio_user']
     assert d.group == AnsibleDefaults['minio_group']
-    assert oct(d.mode) == '0750'
+    assert oct(d.mode) == '0o750'

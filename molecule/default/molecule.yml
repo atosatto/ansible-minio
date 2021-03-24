@@ -6,8 +6,7 @@ scenario:
 driver:
   name: docker
 
-dependency:
-  name: galaxy
+dependency: {}
 
 platforms:
   - name: minio-centos-7
@@ -44,12 +43,12 @@ provisioner:
     diff: True
     v: True
   playbooks:
-    create: ../resources/create.yml
-    destroy: ../resources/destroy.yml
     prepare: ../resources/prepare.yml
+    converge: ./playbook.yml
 
-lint:
-  name: yamllint
+lint: |
+  set -e
+  ansible-lint
 
 verifier:
   name: testinfra
@@ -57,5 +56,3 @@ verifier:
     vvv: True
   additional_files_or_dirs:
     - ../resources/tests/
-  lint:
-    name: flake8

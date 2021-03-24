@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: minio
   author: Andrea Tosatto
   description: Install and configure the Minio S3 compatible object storage server on RHEL/CentOS and Debian/Ubuntu
   min_ansible_version: 2.1

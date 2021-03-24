@@ -2,17 +2,16 @@
 
 # Ansible Role: Minio
 
-[![Build Status](https://travis-ci.org/atosatto/ansible-minio.svg?branch=master)](https://travis-ci.org/atosatto/ansible-minio)
+[![Build Status](https://travis-ci.org/atosatto/ansible-minio.svg?branch=master)](https://travis-ci.org/wireapp/ansible-minio)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
-[![Ansible Role](https://img.shields.io/badge/ansible%20role-atosatto.minio-blue.svg)](https://galaxy.ansible.com/atosatto/minio/)
-[![GitHub tag](https://img.shields.io/github/tag/atosatto/ansible-minio.svg)](https://github.com/atosatto/ansible-minio/tags)
+[![GitHub tag](https://img.shields.io/github/tag/atosatto/ansible-minio.svg)](https://github.com/wireapp/ansible-minio/tags)
 
 Install and configure the [Minio](https://minio.io/) S3 compatible object storage server
 on RHEL/CentOS and Debian/Ubuntu.
 
 ## Requirements
 
-None.
+Ansible: `ansible >= 2.8, < 2.9`
 
 ## Role Variables
 

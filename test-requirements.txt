@@ -1,6 +1,4 @@
-# NOTE: pin 'sh' due to https://github.com/ansible-community/molecule/issues/2676
-sh >=1.12.14, <1.13
-molecule >=2.15.0, <3.0.0
+molecule[docker] >=3.2, <3.3
 docker
-ansible-lint>=3.4.0
-testinfra>=1.7.0
+ansible-lint >=4.0, <5.0
+pytest-testinfra >=6.2, <7.0

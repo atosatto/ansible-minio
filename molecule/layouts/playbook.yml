@@ -1,19 +1,15 @@
 ---
 
-- hosts: all
+- hosts: minio
   any_errors_fatal: true
+  vars_files:
+    - ./../resources/vars.yml
   vars:
-    minio_server_artifact_url: https://dl.min.io/server/minio/release/linux-amd64/archive/minio.RELEASE.2020-10-28T08-16-50Z
-    minio_server_artifact_checksum: sha256:2c7e6774a9befbba6a126791f363550f8f14e34008e100d0e0e57e2ad9b2ab8c
-    minio_client_artifact_url: https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2020-10-03T02-54-56Z
-    minio_client_artifact_checksum: sha256:59e184bd4e2c3a8a19837b0f0da3977bd4e301495a24e4a5d50e291728a1de51
     minio_layouts:
       server1:
         server_addr: ":9091"
       server2:
         server_addr: ":9092"
-    minio_access_key: "key"
-    minio_secret_key: "seecreet"
   roles:
     - role: ansible-minio
       vars:
