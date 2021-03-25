@@ -1,0 +1,43 @@
+---
+
+scenario:
+  name: client
+
+driver:
+  name: docker
+
+dependency: {}
+
+platforms:
+  - name: machine1
+    image: paulfantom/ubuntu-molecule:18.04
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    groups:
+      - minio
+
+  - name: machine2
+    image: paulfantom/ubuntu-molecule:18.04
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    groups:
+      - minio
+
+provisioner:
+  name: ansible
+  options:
+    diff: True
+    v: True
+  playbooks:
+    prepare: ../resources/prepare.yml
+    converge: ./playbook.yml
+
+lint: |
+  set -e
+  ansible-lint
+
+verifier:
+  name: ansible
+  enabled: true
