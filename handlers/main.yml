@@ -16,3 +16,11 @@
     timeout: 6
   register: response
   failed_when: response.status != 200
+
+- name: rewrite previous credentials
+  template:
+    src: minio.old-credentials.env.j2
+    dest: "{{ minio_server_old_credentials_envfile }}"
+    owner: "root"
+    group: "{{ minio_group }}"
+    mode: 0640

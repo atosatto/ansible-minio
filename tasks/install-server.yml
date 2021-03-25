@@ -150,6 +150,7 @@
   notify:
     - restart minio
     - verify minio is responsive
+    - rewrite previous credentials
 
 - name: Create the Minio server systemd config
   template:

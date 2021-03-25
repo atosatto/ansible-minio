@@ -10,3 +10,5 @@ go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }
 
 minio_default_server_artifact_url: "https://dl.minio.io/server/minio/release/linux-{{ go_arch }}/minio"
 minio_default_client_artifact_url: "https://dl.minio.io/client/mc/release/linux-{{ go_arch }}/mc"
+
+minio_server_old_credentials_envfile: "{{ minio_server_envfile }}.pre"

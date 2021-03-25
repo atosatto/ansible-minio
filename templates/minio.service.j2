@@ -20,6 +20,7 @@ Group={{ minio_group }}
 PermissionsStartOnly=true
 
 EnvironmentFile={{ minio_server_envfile }}
+EnvironmentFile=-{{ minio_server_old_credentials_envfile }}
 ExecStartPre=/bin/bash -c "[ -n \"${MINIO_VOLUMES}\" ] || echo \"Variable MINIO_VOLUMES not set in {{ minio_server_envfile }}\""
 
 ExecStart={{ minio_server_bin }} server $MINIO_OPTS $MINIO_VOLUMES

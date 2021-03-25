@@ -25,6 +25,7 @@ USER="{{ minio_user }}"
 
 # Read configuration variable file if it is present
 [ -r "{{ minio_server_envfile }}" ] && . {{ minio_server_envfile }}
+[ -r "{{ minio_server_old_credentials_envfile }}" ] && . {{ minio_server_old_credentials_envfile }}
 
 # Make sure the MINIO_VOLUMES variable is defined
 [ -n "${MINIO_VOLUMES}" ] || log_daemon_msg "Variable MINIO_VOLUMES not set in {{ minio_server_envfile }}"
