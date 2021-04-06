@@ -103,7 +103,7 @@ minio_access_key: ""
 minio_secret_key: ""
 ```
 
-Minio access and secret keys.
+Minio access and secret keys. Change the value in order to rotate credentials. 
 
 ```yaml
 minio_install_server: true
