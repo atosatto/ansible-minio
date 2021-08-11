@@ -32,9 +32,9 @@ minio_server_env_extra: ""
 # Additional Minio server CLI options
 minio_server_opts: ""
 
-# Minio access and secret keys
-minio_access_key: ""
-minio_secret_key: ""
+# Minio root user credentials
+minio_root_user: ""
+minio_root_password: ""
 
 # Switches to enable/disable the Minio server and/or Minio client installation.
 minio_install_server: true
