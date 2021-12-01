@@ -28,5 +28,13 @@
     checksum: "sha256:{{ _minio_client_checksum }}"
   register: _download_client
   until: _download_client is succeeded
+  when: minio_install_source == "download"
   retries: 5
   delay: 2
+
+- name: Install the latest version of Minio from a repository
+  ansible.builtin.package:
+    name:
+      - mcli
+    state: latest
+  when: minio_install_source == "repo"

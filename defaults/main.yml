@@ -39,3 +39,6 @@ minio_secret_key: ""
 # Switches to enable/disable the Minio server and/or Minio client installation.
 minio_install_server: true
 minio_install_client: true
+
+# Switches Minio installation source: allowed is one of ['download', 'repo']
+minio_install_source: download

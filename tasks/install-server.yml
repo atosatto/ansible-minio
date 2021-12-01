@@ -49,9 +49,17 @@
     checksum: "sha256:{{ _minio_server_checksum }}"
   register: _download_server
   until: _download_server is succeeded
+  when: minio_install_source == "download"
   retries: 5
   delay: 2
   notify: restart minio
+
+- name: Install the latest version of Minio server from a repository
+  ansible.builtin.package:
+    name:
+      - minio
+    state: latest
+  when: minio_install_source == "repo"
 
 - name: Generate the Minio server envfile
   template:
