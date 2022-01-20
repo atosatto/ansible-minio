@@ -54,8 +54,8 @@
             mc alias set \
               {{ mc_alias_name }} \
               http://{{ minio_server_ip }}{{ minio_layouts.server1.server_addr }} \
-              {{ minio_access_key }} \
-              {{ minio_secret_key }}
+              '{{ minio_access_key }}' \
+              '{{ minio_secret_key }}'
 
         - name: removing unneeded default aliases
           shell: >-
