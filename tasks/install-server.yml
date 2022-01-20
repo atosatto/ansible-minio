@@ -46,7 +46,7 @@
     minio_server_cluster_nodes: >-
       [
         {%- for layout in minio_layouts -%}
-          {%- for host in groups[minio_group_name] -%}
+          {%- for host in minio_hosts -%}
             "{{
               [
                 'http://',

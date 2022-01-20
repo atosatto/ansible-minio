@@ -1,6 +1,6 @@
 ---
 
-- hosts: minio
+- hosts: all
   any_errors_fatal: true
   vars_files:
     - ./../resources/vars.yml

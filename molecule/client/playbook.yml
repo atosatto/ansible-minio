@@ -11,6 +11,7 @@
       server2:
         server_addr: ":9092"
     minio_install_client: true
+    minio_hosts: "{{ groups['minio'] }}"
   roles:
     - role: ansible-minio
       vars:

@@ -14,16 +14,12 @@ platforms:
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    groups:
-      - minio
 
   - name: instance2
     image: paulfantom/ubuntu-molecule:18.04
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    groups:
-      - minio
 
 provisioner:
   name: ansible
