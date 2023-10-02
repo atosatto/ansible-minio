@@ -1,0 +1,58 @@
+---
+- name: Create Minio group
+  group:
+    name: "{{ minio_group }}"
+    state: present
+
+- name: Create Minio user
+  user:
+    name: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    system: "yes"
+    shell: "/usr/sbin/nologin"
+
+- name: Create the Minio data storage directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    mode: 0750
+  when: minio_server_make_datadirs
+  with_items: "{{ minio_server_datadirs }}"
+
+- name: Generate the Minio server envfile
+  template:
+    src: minio.env.j2
+    dest: "{{ minio_server_envfile }}"
+    owner: "root"
+    group: "{{ minio_group }}"
+    mode: 0640
+  notify: restart minio
+
+- name: Create the Minio server systemd config
+  template:
+    src: minio.service.j2
+    dest: "/etc/systemd/system/minio.service"
+    owner: "root"
+    group: "root"
+  when: ansible_service_mgr == "systemd"
+  notify:
+    - reload minio systemd
+    - restart minio
+
+- name: Create the Minio server init.d config
+  template:
+    src: minio.init.j2
+    dest: "/etc/init.d/minio"
+    owner: "root"
+    group: "root"
+    mode: 0750
+  when: ansible_service_mgr != "systemd"
+  notify: restart minio
+
+- name: Enable and start the Minio service
+  service:
+    name: minio
+    state: started
+    enabled: true
