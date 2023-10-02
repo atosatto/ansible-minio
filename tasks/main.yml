@@ -10,5 +10,8 @@
 - include_tasks: install-server.yml
   when: minio_install_server
 
+- include_tasks: configure-server.yml
+  when: minio_configure_server
+
 - include_tasks: install-client.yml
   when: minio_install_client
