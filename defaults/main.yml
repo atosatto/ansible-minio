@@ -27,7 +27,7 @@ minio_server_make_datadirs: true
 minio_server_cluster_nodes: [ ]
 
 # Additional environment variables to be set in minio server environment
-minio_server_env_extra: ""
+minio_server_env_extra: "\nMINIO_ROOT_USER=myminioadmin\nMINIO_ROOT_PASSWORD=minio-secret-key-change-me"
 
 # Additional Minio server CLI options
 minio_server_opts: ""
